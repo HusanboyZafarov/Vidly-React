@@ -110,7 +110,6 @@ class Movies extends Component {
                         onFavourite={this.handleFavourite}
                         onSort={this.handleSort}
                         sortColumn={sortColumn}
-                        columns={this.columns}
                     />
                     <Pagination
                         itemsCount={totalCount}
