@@ -1,9 +1,15 @@
 import React from 'react'
+import { useParams, useNavigate } from 'react-router-dom';
 
-const MovieForm = () => {
+const MovieForm = ({ }) => {
+    const { id } = useParams()
+    const navigate = useNavigate()
     return (
-        <h1>MovieForm</h1>
-    )
-}
+        <div >
+            <h1>MovieForm - {useParams().id}</h1>
+            <button className='btn btn-primary' onClick={() => navigate("/movies")}>Save</button>
+        </div>
+    );
+};
 
 export default MovieForm
