@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary mb-3" >
+        <nav className="navbar navbar-expand-lg bg-body-tertiary mb-3 border-bottom" >
             <div className="container">
                 <Link className="navbar-brand" to="/">
                     Vidly
