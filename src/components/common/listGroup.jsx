@@ -5,7 +5,7 @@ const ListGroup = props => {
         textProperty = "name",
         valueProperty = "_id",
         onItemSelect,
-        selectedItem 
+        selectedItem
     } = props
     return (
         <ul className="list-group">

@@ -3,7 +3,7 @@ import ListGroup from "../common/listGroup"
 import Pagination from "../common/Pagination"
 import MoviesTable from "../MoviesTable/MoviesTable"
 import { paginate } from "../../utils/paginate"
-import movies, { getMovies } from "../../services/fakeMovieService"
+import { getMovies } from "../../services/fakeMovieService"
 import { getGenres } from "../../services/fakeGenreService"
 import _ from "lodash"
 
@@ -82,7 +82,6 @@ class Movies extends Component {
     }
 
     render() {
-        const { length: count } = this.state.movies
         const {
             pageSize,
             currentPage,
