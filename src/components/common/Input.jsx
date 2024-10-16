@@ -1,15 +1,13 @@
 import React, { forwardRef } from 'react';
 
-const Input = forwardRef(({ name, label, value, onChange, type, error }, ref) => {
+const Input = forwardRef(({ name, label, error, ...rest }, ref) => {
     return (
         <div className="mb-3">
             <label htmlFor={name} className="form-label">{label}</label>
             <input
+                {...rest}
                 ref={ref}
                 name={name}
-                value={value}
-                onChange={onChange}
-                type={type}
                 className="form-control"
                 id={name}
             />

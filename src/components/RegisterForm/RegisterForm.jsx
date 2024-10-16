@@ -3,18 +3,20 @@ import Form from '../common/Form';
 import Input from '../common/Input';
 import Joi from 'joi-browser';
 
-class LoginForm extends Form {
+class RegisterForm extends Form {
     state = {
         data: {
             username: "",
-            password: ""
+            password: "",
+            name: ""
         },
         errors: {}
     };
 
     schema = {
-        username: Joi.string().required().label("Username*"),
-        password: Joi.string().required().label("Password*")
+        username: Joi.string().required().label("Username"),
+        password: Joi.string().required().label("Password"),
+        name: Joi.string().required().label("Name"),
     };
 
     doSubmit = () => {
@@ -25,15 +27,16 @@ class LoginForm extends Form {
         const { data, errors } = this.state;
         return (
             <div>
-                <h1>Login</h1>
+                <h1>Register</h1>
                 <form className="container-fluid" onSubmit={this.handleSubmit}>
+                    {this.renderInput("name", "Name")}
                     {this.renderInput("username", "Username")}
                     {this.renderInput("password", "Password", "password")}
-                    {this.renderButton("Login")}
+                    {this.renderButton("Register")}
                 </form>
             </div>
         );
     }
 }
 
-export default LoginForm;
+export default RegisterForm;
