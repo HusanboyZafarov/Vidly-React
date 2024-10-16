@@ -22,6 +22,9 @@ const Navbar = () => {
                         <NavLink className="nav-link" to="/rentals">
                             Rentals
                         </NavLink>
+                        <NavLink className="nav-link" to="/login">
+                            Form
+                        </NavLink>
                     </ul>
                 </div>
             </div>
