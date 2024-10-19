@@ -1,8 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import Form from '../common/Form';
 import Joi from 'joi-browser';
-import { getGenres } from './../../services/fakeGenreService';
-import { getMovies, saveMovie } from './../../services/fakeMovieService';
+import { getGenres } from './../../services/genreService';
+import { getMovie, saveMovie } from './../../services/movieService';
 
 class MovieForm extends Form {
     state = {
@@ -12,7 +12,7 @@ class MovieForm extends Form {
             numberInStock: "",
             dailyRentalRate: ""
         },
-        genres: getGenres(),
+        genres: [],
         errors: {}
     }
 
@@ -36,22 +36,30 @@ class MovieForm extends Form {
             .label("Daily Rental Rate")
     }
 
-    async componentDidMount() {
-        const genres = getGenres();
+    async populateGenres() {
+        const { data: genres } = await getGenres();
         this.setState({ genres });
+    }
 
-        const { id: movieId } = this.props.params;
-        if (movieId === "new") return;
+    async populateMovie() {
+        try {
+            const { id: movieId } = this.props.params;
+            if (movieId === "new") return;
 
-        const movie = getMovies(movieId);
-        if (!movie) {
-            this.props.navigate("/not-found");
-            return;
+            const { data: movie } = await getMovie(movieId);
+            this.setState({
+                data: this.mapToViewModel(movie)
+            });
+        } catch (ex) {
+            if (ex.response && ex.response.status === 404) {
+                this.props.navigate("/not-found");
+            }
         }
+    }
 
-        this.setState({
-            data: this.mapToViewModel(movie)
-        });
+    async componentDidMount() {
+        await this.populateGenres();
+        await this.populateMovie();
     }
 
     mapToViewModel(movie) {
@@ -64,8 +72,8 @@ class MovieForm extends Form {
         };
     }
 
-    doSubmit = () => {
-        saveMovie(this.state.data);
+    doSubmit = async () => {
+        await saveMovie(this.state.data);
         this.props.navigate("/movies");
     }
 
