@@ -1,7 +1,8 @@
 import React from 'react';
-import Form from '../common/Form';
-import Input from '../common/Input';
 import Joi from 'joi-browser';
+import { useNavigate, useLocation } from 'react-router-dom'; // React Router v6 hooklari
+import Form from '../common/Form';
+import auth from '../../services/authService';
 
 class LoginForm extends Form {
     state = {
@@ -17,12 +18,24 @@ class LoginForm extends Form {
         password: Joi.string().required().label("Password*")
     };
 
-    doSubmit = () => {
-        console.log("Submitted");
-    };
+    async doSubmit() {
+        try {
+            const { data } = this.state;
+            await auth.login(data.username, data.password);
+
+            const { state } = this.props.location;
+            const navigate = this.props.navigate;
+            navigate(state?.from?.pathname || "/");
+        } catch (ex) {
+            if (ex.response && ex.response.status === 400) {
+                const errors = { ...this.state.errors };
+                errors.username = ex.response.data;
+                this.setState({ errors });
+            }
+        }
+    }
 
     render() {
-        const { data, errors } = this.state;
         return (
             <div>
                 <h1>Login</h1>
@@ -36,4 +49,12 @@ class LoginForm extends Form {
     }
 }
 
-export default LoginForm;
+function withNavigate(Component) {
+    return function WrapperComponent(props) {
+        const navigate = useNavigate();
+        const location = useLocation();
+        return <Component {...props} navigate={navigate} location={location} />;
+    };
+}
+
+export default withNavigate(LoginForm);

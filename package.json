@@ -10,6 +10,7 @@
     "cors": "^2.8.5",
     "joi": "^17.13.3",
     "joi-browser": "^13.4.0",
+    "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "query-string": "^9.1.1",
     "react": "^18.3.1",

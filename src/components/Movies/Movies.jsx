@@ -44,7 +44,7 @@ class Movies extends Component {
             movies,
         })
 
-        
+
         try {
             await deleteMovie(movie._id)
         } catch (ex) {
@@ -120,6 +120,7 @@ class Movies extends Component {
             genres,
             searchQuery
         } = this.state;
+        const { user } = this.props
 
         const { totalCount, movies } = this.getPageData()
 
@@ -133,12 +134,17 @@ class Movies extends Component {
                     />
                 </div>
                 <div className="col">
-                    <Link to="/movies/new" className="btn btn-primary" style={{ marginBottom: 20 }}>
-                        New Movie
-                    </Link>
+                    {user &&
+                        <React.Fragment>
+                            <Link to="/movies/new" className="btn btn-primary" style={{ marginBottom: 20 }}>
+                                New Movie
+                            </Link>
+                        </React.Fragment>
+                    }
                     <p>Showing {totalCount} movies in the database.</p>
                     <SearchBox value={searchQuery} onChange={this.handleSearch} />
                     <MoviesTable
+                        user={user}
                         movies={movies}
                         onDelete={this.handleDelete}
                         onFavourite={this.handleFavourite}
