@@ -22,7 +22,6 @@ class LoginForm extends Form {
         try {
             const { data } = this.state;
             await auth.login(data.username, data.password);
-
             const { state } = this.props.location;
             const navigate = this.props.navigate;
             navigate(state?.from?.pathname || "/");
