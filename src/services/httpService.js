@@ -1,5 +1,5 @@
-import axios from "axios";
-import { toast } from "react-toastify";
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 axios.interceptors.response.use(null, (error) => {
   const expectedError =
@@ -8,14 +8,14 @@ axios.interceptors.response.use(null, (error) => {
     error.response.status < 500;
 
   if (!expectedError) {
-    toast.error("An unexpected error occured!");
+    toast.error('An unexpected error occured!');
   }
 
   return Promise.reject(error);
 });
 
 export function setJwt(jwt) {
-  axios.defaults.headers.common["x-auth-token"] = jwt;
+  axios.defaults.headers.common['x-auth-token'] = jwt;
 }
 
 export default {
@@ -23,5 +23,5 @@ export default {
   post: axios.post,
   put: axios.put,
   delete: axios.delete,
-  setJwt,
+  setJwt
 };

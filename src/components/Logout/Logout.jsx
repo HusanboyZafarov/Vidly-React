@@ -10,6 +10,6 @@ class Logout extends Component {
     render() {
         return null
     }
-}
+}   
 
 export default Logout;
